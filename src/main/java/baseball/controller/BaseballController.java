@@ -21,13 +21,22 @@ public class BaseballController {
     public void startBaseballGame() {
         outputView.printGameStartMessage();
         List<Integer> answer = createRandomAnswer();
+        System.out.println("answer = " + answer);
+        while (true) {
+            String userInput = inputNumbers();
+            List<Integer> numbers = StringParser.parse(userInput);
 
-        String userInput = inputNumbers();
-        List<Integer> numbers = StringParser.parse(userInput);
+            int strike = calculateStrike(answer, numbers);
+            int ball = calculateBall(answer, numbers);
+            outputView.printUserResult(strike, ball);
 
-        int strike = calculateStrike(answer, numbers);
-        int ball = calculateBall(answer, numbers);
-        outputView.printUserResult(strike, ball);
+            if (strike == 3) {
+                outputView.printGameWinMessage();
+                break;
+            }
+        }
+
+
     }
 
     public List<Integer> createRandomAnswer() {
