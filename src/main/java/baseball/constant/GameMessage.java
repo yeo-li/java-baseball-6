@@ -11,7 +11,7 @@ public enum GameMessage {
 
     private final String gameMessage;
 
-    private GameMessage(String gameMessage) {
+    GameMessage(String gameMessage) {
         this.gameMessage = gameMessage;
     }
 

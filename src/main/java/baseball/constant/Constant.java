@@ -6,7 +6,7 @@ public enum Constant {
 
     private final int constant;
 
-    private Constant(int constant) {
+    Constant(int constant) {
         this.constant = constant;
     }
 

@@ -7,9 +7,7 @@ public class InputView {
 
     public String inputNumbers() {
         System.out.print(GameMessage.INPUT_NUMBER.getGameMessage());
-        String userInput = Console.readLine();
-
-        return userInput;
+        return Console.readLine();
     }
 
     public String inputUserAnswer() {
