@@ -1,21 +1,23 @@
 package baseball.validator;
 
+import baseball.constant.ErrorMessage;
+
 public class AnswerValidator {
 
     public static void validate(String userInput) {
-        shouldBeLengthShorterThanOne(userInput);
+        shouldBeLengthOne(userInput);
         shouldBeOnlyOneOrTwo(userInput);
     }
 
-    private static void shouldBeLengthShorterThanOne(String userInput) {
+    private static void shouldBeLengthOne(String userInput) {
         if (userInput.length() > 1) {
-            throw new IllegalArgumentException("1 또는 2만 입력 가능합니다.");
+            throw new IllegalArgumentException(ErrorMessage.SHOULD_BE_LENGTH_ONE.getErrorMessage());
         }
     }
 
     private static void shouldBeOnlyOneOrTwo(String userInput) {
         if (!(userInput.equals("1") || userInput.equals("2"))) {
-            throw new IllegalArgumentException("1 또는 2만 입력 가능합니다.");
+            throw new IllegalArgumentException(ErrorMessage.SHOULD_BE_ONLY_ONE_OR_TWO.getErrorMessage());
         }
     }
 

@@ -1,15 +1,17 @@
 package baseball.validator;
 
+import baseball.constant.ErrorMessage;
+
 public class NumberValidator {
     public static void validate(String userInput) {
-        shouldBeLengthThree(userInput);
+        shouldBeNumberLength(userInput);
         shouldNotBeOverlap(userInput);
         shouldBeOnlyNumber(userInput);
     }
 
-    private static void shouldBeLengthThree(String userInput) {
+    private static void shouldBeNumberLength(String userInput) {
         if (userInput.length() != 3) {
-            throw new IllegalArgumentException("입력값이 잘못되었습니다.");
+            throw new IllegalArgumentException(ErrorMessage.SHOULD_BE_NUMBER_LENGTH.getErrorMessage());
         }
     }
 
@@ -17,7 +19,7 @@ public class NumberValidator {
         String tmp = "";
         for (char c : userInput.toCharArray()) {
             if (tmp.contains(String.valueOf(c))) {
-                throw new IllegalArgumentException("숫자가 중복되었습니다.");
+                throw new IllegalArgumentException(ErrorMessage.SHOULD_NOT_BE_OBERLAP.getErrorMessage());
             }
             tmp += String.valueOf(c);
         }
@@ -26,7 +28,7 @@ public class NumberValidator {
     private static void shouldBeOnlyNumber(String userInput) {
         for (char c : userInput.toCharArray()) {
             if (!Character.isDigit(c) || c == '0') {
-                throw new IllegalArgumentException("1~9 사이의 숫자만 입력해야합니다.");
+                throw new IllegalArgumentException(ErrorMessage.SHOULD_BE_ONLY_NUMBER.getErrorMessage());
             }
         }
     }
