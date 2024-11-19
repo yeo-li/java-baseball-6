@@ -1,13 +1,15 @@
 package baseball.view;
 
+import baseball.constant.GameMessage;
+
 public class OutputView {
 
     public void printGameStartMessage() {
-        System.out.println("숫자 야구 게임을 시작합니다.");
+        System.out.println(GameMessage.GAME_START.getGameMessage());
     }
 
     public void printGameWinMessage() {
-        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        System.out.println(GameMessage.GAME_WIN);
     }
 
     public void printUserResult(int strike, int ball) {
@@ -25,7 +27,7 @@ public class OutputView {
     private String createNothingMessage(int strike, int ball) {
         String result = "";
         if (isNothing(strike, ball)) {
-            result = "낫싱";
+            result = GameMessage.NOTHING.getGameMessage();
         }
         return result;
     }
@@ -33,7 +35,7 @@ public class OutputView {
     private String createStrikeMessage(int strike) {
         String result = "";
         if (strike != 0) {
-            result = strike + "스트라이크";
+            result = strike + GameMessage.STRIKE.getGameMessage();
         }
         return result;
     }
@@ -41,7 +43,7 @@ public class OutputView {
     private String createBallMessage(int ball) {
         String result = "";
         if (ball != 0) {
-            result += ball + "볼 ";
+            result += ball + GameMessage.BALL.getGameMessage() + " ";
         }
         return result;
     }
