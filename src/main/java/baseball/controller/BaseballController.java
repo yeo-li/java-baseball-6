@@ -1,5 +1,6 @@
 package baseball.controller;
 
+import baseball.constant.Constant;
 import baseball.util.StringParser;
 import baseball.validator.AnswerValidator;
 import baseball.validator.NumberValidator;
@@ -19,33 +20,33 @@ public class BaseballController {
         this.outputView = new OutputView();
     }
 
-    public void startBaseballGame() {
+    public void runBaseballGame() {
         outputView.printGameStartMessage();
         List<Integer> answer = createRandomAnswer();
-        System.out.println("answer = " + answer);
-        while (true) {
-            String userInput = inputNumbers();
-            List<Integer> numbers = StringParser.parse(userInput);
+        progressBaseballGame(answer);
+        restartGame();
+    }
 
-            int strike = calculateStrike(answer, numbers);
-            int ball = calculateBall(answer, numbers);
-            outputView.printUserResult(strike, ball);
-
-            if (strike == 3) {
-                outputView.printGameWinMessage();
-                break;
-            }
+    public void progressBaseballGame(List<Integer> answer) {
+        String userInput = inputNumbers();
+        List<Integer> numbers = StringParser.parse(userInput);
+        int strike = calculateStrike(answer, numbers);
+        int ball = calculateBall(answer, numbers);
+        outputView.printUserResult(strike, ball);
+        if (isGameWinning(strike)) {
+            outputView.printGameWinMessage();
+            return;
         }
+        progressBaseballGame(answer);
+    }
 
-        String userAnswer = inputUserAnswer();
-        if (userAnswer.equals("1")) {
-            startBaseballGame();
-        }
+    private boolean isGameWinning(int strike) {
+        return strike == 3;
     }
 
     public List<Integer> createRandomAnswer() {
         List<Integer> numbers = new ArrayList<>();
-        while (numbers.size() < 3) {
+        while (numbers.size() < Constant.NUMBER_LENGTH.getConstant()) {
             int randomNumber = Randoms.pickNumberInRange(1, 9);
             if (!numbers.contains(randomNumber)) {
                 numbers.add(randomNumber);
@@ -62,7 +63,7 @@ public class BaseballController {
 
     public int calculateStrike(List<Integer> answer, List<Integer> numbers) {
         int strike = 0;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < Constant.NUMBER_LENGTH.getConstant(); i++) {
             if (answer.get(i) == numbers.get(i)) {
                 strike++;
             }
@@ -72,9 +73,9 @@ public class BaseballController {
 
     public int calculateBall(List<Integer> answer, List<Integer> numbers) {
         int ball = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (i == j) {
+        for (int i = 0; i < Constant.NUMBER_LENGTH.getConstant(); i++) {
+            for (int j = 0; j < Constant.NUMBER_LENGTH.getConstant(); j++) {
+                if (j == i) {
                     continue;
                 }
                 if (answer.get(i) == numbers.get(j)) {
@@ -89,5 +90,12 @@ public class BaseballController {
         String userInput = inputView.inputUserAnswer();
         AnswerValidator.validate(userInput);
         return userInput;
+    }
+
+    public void restartGame() {
+        String userAnswer = inputUserAnswer();
+        if (userAnswer.equals("1")) {
+            runBaseballGame();
+        }
     }
 }
