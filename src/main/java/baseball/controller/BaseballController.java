@@ -27,6 +27,7 @@ public class BaseballController {
 
         int strike = calculateStrike(answer, numbers);
         int ball = calculateBall(answer, numbers);
+        outputView.printUserResult(strike, ball);
     }
 
     public List<Integer> createRandomAnswer() {
