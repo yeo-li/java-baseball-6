@@ -1,6 +1,7 @@
 package baseball.controller;
 
 import baseball.util.StringParser;
+import baseball.validator.AnswerValidator;
 import baseball.validator.NumberValidator;
 import baseball.view.InputView;
 import baseball.view.OutputView;
@@ -36,7 +37,10 @@ public class BaseballController {
             }
         }
 
-
+        String userAnswer = inputUserAnswer();
+        if (userAnswer.equals("1")) {
+            startBaseballGame();
+        }
     }
 
     public List<Integer> createRandomAnswer() {
@@ -79,5 +83,11 @@ public class BaseballController {
             }
         }
         return ball;
+    }
+
+    public String inputUserAnswer() {
+        String userInput = inputView.inputUserAnswer();
+        AnswerValidator.validate(userInput);
+        return userInput;
     }
 }
