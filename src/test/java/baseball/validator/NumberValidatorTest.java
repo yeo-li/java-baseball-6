@@ -25,11 +25,13 @@ class NumberValidatorTest {
 
     @ParameterizedTest
     @CsvSource(value = {
+            "1",
+            "12",
             "112345",
             "1234",
             "1451412511"
     })
-    void 세_자리수_이상이라면_예외를_발생_시킨다(String errorInput) {
+    void 세_자리수가_아니라면_예외를_발생_시킨다(String errorInput) {
         // then
         Assertions.assertThrows(
                 IllegalArgumentException.class,
@@ -57,20 +59,4 @@ class NumberValidatorTest {
         );
     }
 
-    @ParameterizedTest
-    @CsvSource(value = {
-            "109",
-            "a12",
-            "1~9"
-    })
-    void 일에서_구_사이의_숫자가_아니라면_예외를_발생_시킨다(String errorInput) {
-        // then
-        Assertions.assertThrows(
-                IllegalArgumentException.class,
-                () -> {
-                    // when
-                    NumberValidator.validate(errorInput);
-                }
-        );
-    }
 }
